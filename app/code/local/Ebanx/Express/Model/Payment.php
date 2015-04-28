@@ -218,8 +218,18 @@ class Ebanx_Express_Model_Payment extends Mage_Payment_Model_Method_Abstract
         {
           $interestRate = floatval(Mage::getStoreConfig('payment/ebanx_express/interest_installments'));
           $interestMode = Mage::getStoreConfig('payment/ebanx_express/installments_mode');
+					$customInterest = Mage::getStoreConfig('payment/ebanx_express/custom_interest');
 
           $params['payment']['instalments']  = intval($ebanx['installments']);
+
+					if ($customInterest) {
+						$customInterest = unserialize($customInterest);
+						foreach ($customInterest as $custom) {
+							if ($custom['instalments'] == $ebanx['installments'])
+								$interestRate = (int)$custom['interest'];
+						}
+					}	
+
           $params['payment']['amount_total'] = Ebanx_Express_Utils::calculateTotalWithInterest(
                                                     $interestMode
                                                   , $interestRate

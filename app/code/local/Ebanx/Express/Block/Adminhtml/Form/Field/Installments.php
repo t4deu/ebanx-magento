@@ -11,6 +11,6 @@ class Ebanx_Express_Block_Adminhtml_Form_Field_Installments extends Mage_Core_Bl
 
 	public function setInputName($value)
 	{
-		return $this->setName($valuei);
+		return $this->setName($value);
 	}
 }

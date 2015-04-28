@@ -32,7 +32,7 @@ class Ebanx_Express_Block_Adminhtml_Custominterest  extends Mage_Adminhtml_Block
 	{
 		$row->setData(
 			'option_extra_attr_' . $this->_getRenderer()
-			->calcOptionHash($row->getData('custom_interest')),
+			->calcOptionHash($row->getData('installments')),
 				'selected="selected"'
 			);
 	}
