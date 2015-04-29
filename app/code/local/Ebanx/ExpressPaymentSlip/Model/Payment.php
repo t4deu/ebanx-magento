@@ -217,8 +217,6 @@ class Ebanx_ExpressPaymentSlip_Model_Payment extends Mage_Payment_Model_Method_A
               // Add the EBANX hash in the order data
               $order->getPayment()
 								->setData('ebanx_hash', $hash)
-								->setData('ebanx_boleto_url', $response->payment->boleto_url)
-								->setData('ebanx_boleto_barcode', $response->payment->boleto_barcode)
                 ->save();
 
               // Redirect to bank page if the client chose TEF
@@ -249,7 +247,18 @@ class Ebanx_ExpressPaymentSlip_Model_Payment extends Mage_Payment_Model_Method_A
       return $this;
   }
 
-    /**
+  /**
+   * Returns print url
+   * @param  Varien_Object $payment
+   * @return string
+   */
+	public function getPrintUrl(Varien_Object  $payment)
+	{
+		$hash = $payment->getData('ebanx_hash');
+		return \Ebanx\Config::getURL().'print?hash=' . $hash;
+	}
+
+  /**
    * Returns user friendly error messages
    * @param  string $errorCode The error code
    * @return string
