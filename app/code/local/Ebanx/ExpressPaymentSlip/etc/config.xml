@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Ebanx_ExpressPaymentSlip>
+      <version>1.0.0</version>
+    </Ebanx_ExpressPaymentSlip>
+  </modules>
+
+  <global>
+    <models>
+      <ebanx_expressPaymentSlip>
+        <class>Ebanx_ExpressPaymentSlip_Model</class>
+      </ebanx_expressPaymentSlip>
+      <ebanx_adminhtml>
+        <class>Ebanx_ExpressPaymentSlip_Adminhtml_Model</class>
+      </ebanx_adminhtml>
+    </models>
+
+    <helpers>
+      <ebanx_expressPaymentSlip>
+        <class>Ebanx_ExpressPaymentSlip_Helper</class>
+      </ebanx_expressPaymentSlip>
+    </helpers>
+
+    <payment>
+      <groups>
+        <ebanx_expressPaymentSlip>Ebanx</ebanx_expressPaymentSlip>
+      </groups>
+    </payment>
+
+    <blocks>
+      <ebanx_expressPaymentSlip>
+        <class>Ebanx_ExpressPaymentSlip_Block</class>
+      </ebanx_expressPaymentSlip>
+    </blocks>
+
+    <events>
+      <checkout_type_onepage_save_order_after>
+        <observers>
+          <ebanx_observer>
+            <class>Ebanx_ExpressPaymentSlip_Model_Observer</class>
+            <method>saveOrderQuoteToSession</method>
+          </ebanx_observer>
+        </observers>
+      </checkout_type_onepage_save_order_after>
+    </events>
+  </global>
+
+  <default>
+    <payment>
+      <ebanx_expressPaymentSlip>
+        <model>ebanx_expressPaymentSlip/payment</model>
+        <group>ebanx</group>
+        <active>1</active>
+        <title>Payment Slips for Brazil</title>
+        <order_status>pending</order_status>
+        <payment_action>authorize</payment_action>
+        <allowspecific>1</allowspecific>
+        <specificcountry>BR</specificcountry>
+      </ebanx_expressPaymentSlip>
+    </payment>
+  </default>
+</config>

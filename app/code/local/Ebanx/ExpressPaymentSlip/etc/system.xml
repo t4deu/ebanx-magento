@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<config>
+	<sections>
+		<payment>
+			<groups>
+				<ebanx_expressPaymentSlip translate="label" module="ebanx_expressPaymentSlip">
+					<label>EBANX ExpressPaymentSlip Checkout</label>
+					<comment>EBANX ExpressPaymentSlip - Payment slips for Brazil</comment>
+					<sort_order>800</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>0</show_in_store>
+
+					<fields>
+						<active translate="label">
+							<label>Enabled</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</active>
+
+						<title translate="label">
+							<label>Title</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>8</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</title>
+
+            <order_status translate="label">
+              <label>Open order status</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_order_status</source_model>
+              <sort_order>9</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>0</show_in_store>
+            </order_status>
+
+           <allowspecific translate="label">
+              <label>Payment from Applicable Countries</label>
+              <frontend_type>select</frontend_type>
+              <sort_order>16</sort_order>
+              <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>0</show_in_store>
+            </allowspecific>
+
+            <specificcountry translate="label">
+              <label>Payment from Specific Countries</label>
+              <frontend_type>multiselect</frontend_type>
+              <sort_order>17</sort_order>
+              <source_model>adminhtml/system_config_source_country</source_model>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>0</show_in_store>
+              <depends><allowspecific>1</allowspecific></depends>
+            </specificcountry>
+					</fields>
+				</ebanx_expressPaymentSlip>
+			</groups>
+		</payment>
+	</sections>
+</config>
