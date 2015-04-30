@@ -98,7 +98,7 @@ class Ebanx_Express_Block_Form extends Mage_Payment_Block_Form
 								$rate = $interestRate;
 								foreach ($customInterest as $custom) {
 									if ($custom['installments'] == $i)
-										$rate = (int)$custom['interest'];
+										$rate = $custom['interest'];
 								}
                 $installmentsOptions[$i] = Ebanx_Express_Utils::calculateTotalWithInterest(
                                                   $interestMode
