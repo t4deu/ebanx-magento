@@ -1,0 +1,109 @@
+<style type="text/css">
+.ebanx-birth {
+  width: 350px !important;
+}
+.ebanx-birth select {
+  float: left;
+}
+.ebanx-birth .day {
+  width: 60px;
+  margin-right: 10px;
+}
+#payment_ebanx_direct .cvv {
+  width: 30px;
+}
+.ebanx-method {
+  overflow: hidden;
+  border-radius: 4px;
+  background-color: #f4f4f4;
+  padding: 10px;
+  margin: 5px 0 0 0;
+}
+.ebanx-method .payment-method {
+  float: left;
+  display: block;
+  overflow: hidden;
+  margin: 0 20px 0 0;
+}
+.ebanx-method .payment-method input {
+  float: left;
+  clear: left;
+  margin: 4px 5px 0 0;
+}
+.ebanx-method .payment-method label {
+  cursor: pointer;
+}
+</style>
+
+<ul class="form-list" id="payment_form_ebanx_expressPaymentSlip" style="display:none;">
+  <li>
+    <label for="ebanx_cpf" class="required"><em>*</em><?php echo $this->__('CPF') ?></label>
+    <div class="input-box">
+      <input type="text" title="CPF" class="input-text required-entry validate-cpf" id="ebanx_cpf" name="ebanx[cpf]" value="<?php echo $this->getCpf() ?>">
+    </div>
+  </li>
+
+  <li>
+    <label for="ebanx_birth_day" class="required"><em>*</em><?php echo $this->__('Birth Date') ?></label>
+    <div class="input-box ebanx-birth">
+      <select id="ebanx_birth_day" name="ebanx[birth_day]" class="day required-entry" autocomplete="off">
+        <option value="" <?php if (0 == $this->getBirthDay()) echo 'selected="selected"' ?>><?php echo $this->__('Day') ?></option>
+        <?php for ($i = 1; $i <= 31; $i++): ?>
+          <option value="<?php echo $i ?>" <?php if ($i == $this->getBirthDay()) echo 'selected="selected"' ?>><?php echo $i ?></option>
+        <?php endfor ?>
+      </select>
+
+      <select id="ebanx_birth_month" name="ebanx[birth_month]" class="month required-entry" autocomplete="off">
+        <option value="" <?php if (0 == $this->getBirthMonth()) echo 'selected="selected"' ?>><?php echo $this->__('Month') ?></option>
+        <?php for ($i = 1; $i <= 12; $i++): ?>
+          <option value="<?php echo $i ?>" <?php if ($i == $this->getBirthMonth()) echo 'selected="selected"' ?>><?php echo $this->__(date("F", mktime(0, 0, 0, $i, 10))) ?></option>
+        <?php endfor ?>
+      </select>
+
+      <select id="ebanx_birth_year" name="ebanx[birth_year]" class="year required-entry" autocomplete="off">
+        <option value="" <?php if (0 == $this->getBirthYear()) echo 'selected="selected"' ?>><?php echo $this->__('Year') ?></option>
+        <?php for ($i = date('Y') - 16; $i > 1920; $i--): ?>
+          <option value="<?php echo $i ?>" <?php if ($i == $this->getBirthYear()) echo 'selected="selected"' ?>><?php echo $i ?></option>
+        <?php endfor ?>
+      </select>
+    </div>
+  </li>
+
+</ul>
+
+<script>
+  var ebanxRadio      = document.getElementById('p_method_ebanx_express')
+    , ebanxDirectForm = document.getElementById('payment_ebanx_direct')
+    , fieldIds = [
+        'ebanx_cpf'
+      , 'ebanx_birth_day'
+      , 'ebanx_birth_month'
+      , 'ebanx_birth_year'
+    ];
+
+  /**
+   * Validates the CPF number
+   *
+   */
+  function validateCpf(cpf) {
+    var digits = cpf.replace(/[\D]/g, '')
+      , dv1, dv2, sum, mod;
+
+    if (digits.length == 11) {
+      d = digits.split('');
+
+      sum = d[0] * 10 + d[1] * 9 + d[2] * 8 + d[3] * 7 + d[4] * 6 + d[5] * 5 + d[6] * 4 + d[7] * 3 + d[8] * 2;
+      mod = sum % 11;
+      dv1 = (11 - mod < 10 ? 11 - mod : 0);
+
+      sum = d[0] * 11 + d[1] * 10 + d[2] * 9 + d[3] * 8 + d[4] * 7 + d[5] * 6 + d[6] * 5 + d[7] * 4 + d[8] * 3 + dv1 * 2;
+      mod = sum % 11;
+      dv2 = (11 - mod < 10 ? 11 - mod : 0);
+
+      return dv1 == d[9] && dv2 == d[10];
+    }
+
+    return false;
+  }
+  Validation.add('validate-cpf', "<?php echo $this->__('The supplied CPF is invalid')?>", function(cpf) { return validateCpf(cpf); });
+</script>
