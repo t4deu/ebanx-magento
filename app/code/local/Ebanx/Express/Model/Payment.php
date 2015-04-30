@@ -226,7 +226,7 @@ class Ebanx_Express_Model_Payment extends Mage_Payment_Model_Method_Abstract
 						$customInterest = unserialize($customInterest);
 						foreach ($customInterest as $custom) {
 							if ($custom['instalments'] == $ebanx['installments'])
-								$interestRate = (int)$custom['interest'];
+								$interestRate = $custom['interest'];
 						}
 					}	
 
