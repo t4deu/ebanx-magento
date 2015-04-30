@@ -58,6 +58,11 @@ class Ebanx_ExpressPaymentSlip_Model_Payment extends Mage_Payment_Model_Method_A
    */
 	protected $_formBlockType = 'ebanx_expressPaymentSlip/form';
 
+	/**
+	 * Info admin block
+	 */
+	protected $_infoBlockType = 'ebanx_expressPaymentSlip/payment_info';
+
   /**
    * Gets the payment controller checkout URL
    * @return string
