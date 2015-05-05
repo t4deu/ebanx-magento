@@ -54,7 +54,7 @@ class Ebanx_Express_Utils
 
     protected static function calculateTotalSimpleInterest($interestRate, $orderTotal, $installments)
     {
-				return (floatval($interestRate / 100) * floatval($orderTotal)) + floatval($orderTotal)
+				return (floatval($interestRate / 100) * floatval($orderTotal)) + floatval($orderTotal);
     }
 
     protected static function calculateTotalCompoundInterest($interestRate, $orderTotal, $installments)
